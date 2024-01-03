@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Address {
-    private Long id;
+
     private String street;
     private String number;
     private String complement;
