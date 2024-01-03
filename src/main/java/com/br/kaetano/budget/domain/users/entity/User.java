@@ -1,6 +1,7 @@
 package com.br.kaetano.budget.domain.users.entity;
 
 import com.br.kaetano.budget.domain.address.Address;
+import com.br.kaetano.budget.dtos.users.CreateUserDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -20,18 +21,39 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Users implements UserDetails {
+public class User implements UserDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", insertable = false, updatable = false)
+    @Column(name = "id")
     private Long id;
+
     private String email;
     private String username;
     private String password;
     private String firstName;
     private String lastName;
     private Date birth;
+
+    @Embedded
     private Address address;
+
+    private String phoneNumber;
+    private String personalDocument;
+    private boolean active;
+
+    public User(CreateUserDTO userData) {
+        this.active = true;
+        this.email = userData.email();
+        this.username = userData.username();
+        this.password = userData.password();
+        this.firstName = userData.firstName();
+        this.lastName = userData.lastName();
+        this.personalDocument = userData.personalDocument();
+        this.birth = userData.birth();
+        this.address = new Address(userData.address());
+        this.phoneNumber = userData.phoneNumber();
+    }
 
 
     @Override
@@ -41,12 +63,16 @@ public class Users implements UserDetails {
 
     @Override
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     @Override
     public String getUsername() {
-        return username;
+        return this.username;
+    }
+
+    public String getEmail(){
+        return this.email;
     }
 
     @Override
