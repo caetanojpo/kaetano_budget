@@ -2,6 +2,7 @@ package com.br.kaetano.budget.service.user;
 
 import com.br.kaetano.budget.domain.User;
 import com.br.kaetano.budget.dtos.users.CreateUserDTO;
+import com.br.kaetano.budget.enums.UserStatus;
 import com.br.kaetano.budget.mapper.UserMapper;
 import com.br.kaetano.budget.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,8 @@ public class CreateUserService {
     public User save(CreateUserDTO userData) {
 
         var user = UserMapper.INSTANCE.toUser(userData);
+
+        user.setUserStatus(UserStatus.ACTIVE);
 
         repository.save(user);
 

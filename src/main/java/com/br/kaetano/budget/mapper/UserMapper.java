@@ -4,10 +4,8 @@ import com.br.kaetano.budget.domain.Address;
 import com.br.kaetano.budget.domain.User;
 import com.br.kaetano.budget.dtos.address.AddressDTO;
 import com.br.kaetano.budget.dtos.users.CreateUserDTO;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Named;
-import org.mapstruct.ReportingPolicy;
+import com.br.kaetano.budget.enums.UserStatus;
+import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -32,4 +30,6 @@ public interface UserMapper {
     default Address mappingAddress(AddressDTO address){
         return toAddress(address);
     }
+
+
 }
