@@ -58,6 +58,9 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private UserStatus userStatus;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Budget budget;
+
     @Column(name = "create_date_time", nullable = false)
     @CreationTimestamp
     private LocalDateTime createDateTime;
