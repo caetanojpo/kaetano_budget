@@ -1,6 +1,7 @@
-package com.br.kaetano.budget.infra.security;
+package com.br.kaetano.budget.filter;
 
-import com.br.kaetano.budget.domain.users.repository.UsersRepository;
+import com.br.kaetano.budget.repository.UserRepository;
+import com.br.kaetano.budget.service.TokenService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,7 +19,7 @@ public class SecurityFilter extends OncePerRequestFilter {
     @Autowired
     private TokenService tokenService;
 
-    private UsersRepository repository;
+    private UserRepository repository;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

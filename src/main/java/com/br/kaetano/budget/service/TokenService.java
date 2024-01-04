@@ -1,11 +1,12 @@
-package com.br.kaetano.budget.infra.security;
+package com.br.kaetano.budget.service;
 
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.br.kaetano.budget.domain.users.entity.User;
+import com.br.kaetano.budget.domain.User;
+import com.br.kaetano.budget.exception.TokenException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -21,14 +22,14 @@ public class TokenService {
 
     public String generateToken(User user){
         try{
-        var algorithm = Algorithm.HMAC256(secret);
-        return JWT.create()
-                .withIssuer("API kaetano_budget")
-                .withSubject(user.getEmail())
-                .withExpiresAt(expirationDate())
-                .sign(algorithm);
+            var algorithm = Algorithm.HMAC256(secret);
+            return JWT.create()
+                    .withIssuer("API kaetano_budget")
+                    .withSubject(user.getEmail())
+                    .withExpiresAt(expirationDate())
+                    .sign(algorithm);
         } catch (JWTCreationException exception){
-            throw new RuntimeException("Error to generate a new JWT", exception);
+            throw new TokenException("Error to generate a new JWT", exception);
         }
     }
 
@@ -41,7 +42,7 @@ public class TokenService {
                     .verify(jwt)
                     .getSubject();
         } catch (JWTVerificationException exception){
-            throw new RuntimeException("JWT Token is not valid or it's expired");
+            throw new TokenException("JWT Token is not valid or it's expired");
         }
     }
 

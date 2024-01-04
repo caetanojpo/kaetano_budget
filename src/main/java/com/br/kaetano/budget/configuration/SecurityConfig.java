@@ -1,5 +1,6 @@
-package com.br.kaetano.budget.infra.security;
+package com.br.kaetano.budget.configuration;
 
+import com.br.kaetano.budget.filter.SecurityFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

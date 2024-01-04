@@ -1,12 +1,7 @@
-package com.br.kaetano.budget.domain.users.entity;
+package com.br.kaetano.budget.domain;
 
-import com.br.kaetano.budget.domain.address.Address;
-import com.br.kaetano.budget.dtos.users.CreateUserDTO;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,11 +12,13 @@ import java.util.List;
 
 @Table(name = "users")
 @Entity(name = "Users")
+@Builder
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class User implements UserDetails {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,19 +39,6 @@ public class User implements UserDetails {
     private String personalDocument;
     private boolean active;
 
-    public User(CreateUserDTO userData) {
-        this.active = true;
-        this.email = userData.email();
-        this.username = userData.username();
-        this.password = userData.password();
-        this.firstName = userData.firstName();
-        this.lastName = userData.lastName();
-        this.personalDocument = userData.personalDocument();
-        this.birth = userData.birth();
-        this.address = new Address(userData.address());
-        this.phoneNumber = userData.phoneNumber();
-    }
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -69,10 +53,6 @@ public class User implements UserDetails {
     @Override
     public String getUsername() {
         return this.username;
-    }
-
-    public String getEmail(){
-        return this.email;
     }
 
     @Override

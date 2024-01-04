@@ -1,4 +1,4 @@
-package com.br.kaetano.budget.domain.address;
+package com.br.kaetano.budget.domain;
 
 import com.br.kaetano.budget.dtos.address.AddressDTO;
 import jakarta.persistence.Embeddable;
@@ -21,14 +21,4 @@ public class Address {
     private String state;
     private String country;
 
-    public Address(AddressDTO addressDTO) {
-        this.street = addressDTO.street();
-        this.number = addressDTO.number();
-        this.complement = addressDTO.complement();
-        this.neighborhood = addressDTO.neighborhood();
-        this.postalCode = addressDTO.postalCode();
-        this.city = addressDTO.city();
-        this.state = addressDTO.state();
-        this.country = addressDTO.country();
-    }
 }
